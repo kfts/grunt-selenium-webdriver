@@ -98,4 +98,5 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 0.2.451 adds --ignore-ssl-errors to phantomjs startup
 0.2.461 release using selenium-server-standalone-2.47.1.jar
 0.2.482 release using selenium-server-standalone-2.48.2.jar
+0.2.501 release using selenium-server-standalone-2.50.1.jar
 ```
