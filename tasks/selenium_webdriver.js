@@ -145,6 +145,11 @@ function start( next, isHeadless, options ) {
         selOptions.push( options.maxSession );
     }
 
+    if (options.firefoxProfile) {
+        selOptions.push('-Dwebdriver.firefox.profile=' + options.firefoxProfile);
+        console.log( 'Using Firefox profile ' + options.firefoxProfile);
+    }
+
     var spawnOptions = options['cwd'] ? {cwd: options['cwd']} : undefined;
     seleniumServerProcess = spawn( 'java', selOptions, spawnOptions );
     // selenium webdriver has a port prober in it which could be factored in.
@@ -189,6 +194,8 @@ function start( next, isHeadless, options ) {
               ) {
             errMsg = 'FATAL ERROR starting selenium: ' + data+ ' is java runtime installed?';
             throw errMsg;
+        } else if ( options.displaySeleniumLog ) {
+            console.log(data);
         }
     });
     seleniumServerProcess.stdout.setEncoding('utf8');
@@ -255,14 +262,16 @@ process.on('exit', function onProcessExit() {
  * @public
  */
 module.exports= function ( grunt) {
-    grunt.registerTask( 'selenium_start' , 'Starts and stops webdriver in grid or hub mode for use with 3rd party CI platforms' , function () {
+    grunt.registerMultiTask( 'selenium_start' , 'Starts and stops webdriver in grid or hub mode for use with 3rd party CI platforms' , function () {
         var options = this.options({
           timeout: false, // set to integer if required
           host: '127.0.0.1',
           port: 4444,
           maxSession: false,
           cwd: null,
-          ignoreSslErrors: false
+          ignoreSslErrors: false,
+          firefoxProfile: false,
+          displaySeleniumLog: false
         });
         var done = this.async();
         return start ( done , false, options );
@@ -274,7 +283,9 @@ module.exports= function ( grunt) {
           port: 4444,
           maxSession: false,
           phantomPort: 8080,
-          ignoreSslErrors: false
+          ignoreSslErrors: false,
+          firefoxProfile: false,
+          displaySeleniumLog: false
         });
         var done = this.async();
         return start ( done , true, options );
