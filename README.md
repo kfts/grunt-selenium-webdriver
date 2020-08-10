@@ -42,7 +42,9 @@ You can set various selenium commandline options. Some environments already have
 
 ```js
     selenium_start: {
-        options: { port: 4445 }
+        local: {
+            options: { port: 4445 }
+        }
     },
 ```
 
@@ -53,6 +55,8 @@ You can see we do this in our tests, have a look at our GruntFile setup for the 
 - timeout
 - maxSession
 - phantomPort
+- firefoxProfile
+- displaySeleniumLog
 
 ### Usage Examples
 
@@ -100,4 +104,5 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 0.2.482 release using selenium-server-standalone-2.48.2.jar
 0.2.501 release using selenium-server-standalone-2.50.1.jar
 0.2.530 release using selenium-server-standalone-2.53.0.jar
+0.2.531 added firefoxProfile and displaySeleniumLog options
 ```
